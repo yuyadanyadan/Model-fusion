@@ -36,7 +36,6 @@ import tensorflow as tf
 from keras.models import Sequential
 from keras import optimizers
 from keras.layers import Dropout
-from mlxtend.regressor import StackingRegressor
 from scipy import stats
 
 def mean_absolute_percentage_error(y_true, y_pred): 
@@ -482,8 +481,7 @@ def predict_MF(x,y,outfile):
         dataset_blend_train = np.zeros((X.shape[0], len(regressors)))
         dataset_blend_test = np.zeros((X_predict.shape[0], len(regressors)))
         error_test = np.zeros((1,len(regressors)))
-    
-        #5折stacking,分层采样
+   
         n_split = 5+m
         rkf = KFold(n_splits=n_split)
 
