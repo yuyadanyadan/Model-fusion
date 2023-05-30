@@ -470,12 +470,13 @@ def predict_MF(x,y,outfile):
     x_orig = x
     y_orig = y
     X_0,X_test,y_0,y_test = train_test_split(x_orig, y_orig, test_size=0.1, random_state=0)
+    X_predict, y_predict = X_test, y_test;
+    y_predict = scaler.inverse_transform(y_predict)
     bestR2score = 0.0
     for m, (train0, test0) in enumerate(rkf0.split(X_0,y_0)):
         begin_time = time.time()
         X,y, X_predict, y_predict = X_0,y_0,X_test, y_test;
 
-        y_predict = scaler.inverse_transform(y_predict)
     
         #训练data_blend_train, 来预测dataset_blend_test
         dataset_blend_train = np.zeros((X.shape[0], len(regressors)))
