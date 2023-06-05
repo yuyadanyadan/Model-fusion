@@ -502,12 +502,13 @@ def predict_MF(x,y,outfile):
                 dataset_blend_test_j[:,i] = clf.predict(X_predict).flatten();
 
                 # print("第i折：",i)
-                inv_predict_y = scaler.inverse_transform((dataset_blend_test_j[:,i]).reshape(-1,1))
-                fold_R2 = computeError(y_predict, inv_predict_y, 0)
-                error_regressor[0,i] = fold_R2
+                #inv_predict_y = scaler.inverse_transform((dataset_blend_test_j[:,i]).reshape(-1,1))
+                #fold_R2 = computeError(y_predict, inv_predict_y, 0)
+                #error_regressor[0,i] = fold_R2
             #对于测试集，直接将这k折个模型的预测均值作为新的特征
-            error_regressor = error_regressor/np.sum(error_regressor)
-            dataset_blend_test[:,j] = (np.dot(dataset_blend_test_j, np.transpose(error_regressor))).flatten()  
+           # error_regressor = error_regressor/np.sum(error_regressor)
+            #dataset_blend_test[:,j] = (np.dot(dataset_blend_test_j, np.transpose(error_regressor))).flatten()  
+            dataset_blend_test[:,j] = dataset_blend_test_j.mean(1)
     
         #最后预测；
         clfs = [linear_model.LinearRegression(),
